@@ -1,98 +1,99 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Books NestJS Project
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+Eine RESTful API zur Verwaltung von Büchern, entwickelt mit NestJS, TypeORM und SQLite.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+## Beschreibung
 
-## Description
+Dieses Projekt ist eine vollständige CRUD-API für die Verwaltung einer Büchersammlung. Die Anwendung verwendet NestJS als Framework, TypeORM für die Datenbankanbindung und SQLite als Datenbank.
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
+## Features
 
-## Project setup
+- CRUD-Operationen für Bücher (Erstellen, Lesen, Aktualisieren, Löschen)
+- UUID als primärer Schlüssel
+- Validierung von Eingabedaten mit class-validator
+- API-Dokumentation mit Swagger/OpenAPI
+- SQLite-Datenbank
+- TypeORM Integration
 
-```bash
-$ npm install
+## API-Endpunkte
+
+### Swagger-Dokumentation
+
+Die interaktive API-Dokumentation ist verfügbar unter: `http://localhost:3000/api`
+
+### Verfügbare Endpunkte
+
+| Methode | Endpunkt     | Beschreibung             |
+| ------- | ------------ | ------------------------ |
+| GET     | `/books`     | Alle Bücher abrufen      |
+| GET     | `/books/:id` | Ein Buch nach ID abrufen |
+| POST    | `/books`     | Neues Buch erstellen     |
+| PUT     | `/books/:id` | Buch aktualisieren       |
+| DELETE  | `/books/:id` | Buch löschen             |
+
+### Beispiel-Requests
+
+**Buch erstellen (POST /books)**
+
+```json
+{
+  "title": "The Great Gatsby",
+  "author": "F. Scott Fitzgerald",
+  "publishedYear": 1925
+}
 ```
 
-## Compile and run the project
+**Buch aktualisieren (PUT /books/:id)**
 
-```bash
-# development
-$ npm run start
-
-# watch mode
-$ npm run start:dev
-
-# production mode
-$ npm run start:prod
+```json
+{
+  "title": "The Great Gatsby - Updated",
+  "author": "F. Scott Fitzgerald",
+  "publishedYear": 1925
+}
 ```
 
-## Run tests
+## Datenmodell
 
-```bash
-# unit tests
-$ npm run test
+Die [`Books`](src/books/entities/books.entity.ts)-Entität hat folgende Eigenschaften:
 
-# e2e tests
-$ npm run test:e2e
+- `id` (string, UUID): Eindeutiger Identifikator
+- `title` (string): Titel des Buches
+- `author` (string): Autor des Buches
+- `publishedYear` (number): Erscheinungsjahr
 
-# test coverage
-$ npm run test:cov
+## Projektstruktur
+
+```
+src/
+├── books/
+│   ├── dto/
+│   │   └── books.input.dto.ts      # DTO für Eingabedaten
+│   ├── entities/
+│   │   └── books.entity.ts         # Book-Entity
+│   ├── books.controller.ts         # Controller für Book-Endpunkte
+│   ├── books.service.ts            # Business-Logik
+│   ├── books.module.ts             # Books-Modul
+│   └── *.spec.ts                   # Test-Dateien
+├── app.module.ts                   # Haupt-Anwendungsmodul
+├── app.controller.ts               # Root-Controller
+├── app.service.ts                  # Root-Service
+└── main.ts                         # Einstiegspunkt der Anwendung
 ```
 
-## Deployment
+## Konfiguration
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
+Die Anwendung verwendet folgende Konfigurationen:
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
+- **Port:** Standardmäßig 3000 (kann über `PORT` Umgebungsvariable angepasst werden)
+- **Datenbank:** SQLite-Datei `books.db` im Projektverzeichnis
+- **Synchronize:** Aktiviert in der Entwicklung (automatische Schema-Synchronisation)
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
+## Module und Services
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+- [`BooksModule`](src/books/books.module.ts): Hauptmodul für die Bücherverwaltung
+- [`BooksService`](src/books/books.service.ts): Service mit CRUD-Operationen
+- [`BooksController`](src/books/books.controller.ts): REST-Controller mit API-Endpunkten
 
-## Resources
-
-Check out a few resources that may come in handy when working with NestJS:
-
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
-
-## Support
-
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
-
-## Stay in touch
-
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
-
-## License
-
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+**Hinweis**
+Dies ist ein Lernprojekt zum Vertiefen von NestJS, Swagger, SQLite und TypeORM
