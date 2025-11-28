@@ -47,7 +47,7 @@ export class BooksController {
   }
 
   @ApiOperation({ summary: 'Delete a book by ID' })
-  @ApiResponse({ status: 204, description: 'Book deleted successfully' })
+  @ApiResponse({ status: 204, description: 'Book deleted' })
   @ApiResponse({ status: 404, description: 'Book not found' })
   @Delete(':id')
   deleteBook(@Param('id') id: string) {
