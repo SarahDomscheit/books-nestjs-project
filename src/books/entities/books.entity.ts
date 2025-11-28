@@ -14,20 +14,20 @@ export class Books {
     example: 'The Great Gatsby',
     description: 'The title of the book',
   })
-  @Column({ nullable: false })
+  @Column()
   title: string;
 
   @ApiProperty({
     example: 'F. Scott Fitzgerald',
     description: 'The author of the book',
   })
-  @Column({ nullable: false })
+  @Column()
   author: string;
 
   @ApiProperty({
     example: 1925,
     description: 'The year the book was published',
   })
-  @Column({ nullable: false })
+  @Column()
   publishedYear: number;
 }

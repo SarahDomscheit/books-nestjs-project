@@ -4,6 +4,9 @@ import { AppService } from './app.service';
 import { BooksModule } from './books/books.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Books } from './books/entities/books.entity';
+import { UsersModule } from './users/users.module';
+import { Users } from './users/entities/user.entity';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -11,10 +14,12 @@ import { Books } from './books/entities/books.entity';
     TypeOrmModule.forRoot({
       type: 'sqlite',
       database: 'books.db',
-      entities: [Books],
+      entities: [Books, Users],
       synchronize: true,
       logging: false,
     }),
+    UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],
