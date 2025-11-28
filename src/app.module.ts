@@ -7,9 +7,14 @@ import { Books } from './books/entities/books.entity';
 import { UsersModule } from './users/users.module';
 import { Users } from './users/entities/user.entity';
 import { AuthModule } from './auth/auth.module';
+import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    ConfigModule.forRoot({
+      isGlobal: true,
+      envFilePath: 'src/.env',
+    }),
     BooksModule,
     TypeOrmModule.forRoot({
       type: 'sqlite',

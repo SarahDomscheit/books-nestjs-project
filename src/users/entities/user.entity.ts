@@ -8,11 +8,11 @@ export class Users {
   id: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ unique: true })
   username: string;
 
   @ApiProperty()
-  @Column()
+  @Column({ unique: true })
   email: string;
 
   @ApiProperty()
